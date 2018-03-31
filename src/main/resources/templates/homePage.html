@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-Hello!
+<div>
+ <form th:action="@{/}" method="post" th:object="${voting}">
+     <label>Enter you voting :
+         <input type="text" th:field="*{name}">
+     </label>
+         <button type="submit">Save</button>
+ </form>
+</div>
 </body>
 </html>
