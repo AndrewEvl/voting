@@ -1,6 +1,7 @@
 package by.voting.controller;
 
 
+import by.voting.dto.AllSaveDto;
 import by.voting.entity.Vote;
 import by.voting.entity.Voting;
 import by.voting.service.interfaceService.VoteService;
@@ -26,29 +27,35 @@ public class VotingController {
     }
 
     @ModelAttribute("vote")
-    public Vote vote(){
+    public Vote vote() {
         return new Vote();
     }
 
     @ModelAttribute("voting")
-    public Voting voting(){
+    public Voting voting() {
         return new Voting();
     }
 
+    @ModelAttribute("allSaveDto")
+    public AllSaveDto allSaveDto() {
+        return new AllSaveDto();
+    }
+
     @GetMapping("/")
-    public String homePageGet () {
+    public String homePageGet() {
         return "homePage";
     }
 
     @PostMapping("/")
-    public String homePagePost (Voting voting, Model model){
+    public String homePagePost(AllSaveDto allSaveDto, Vote vote, Voting voting, Model model) {
+        voting.setName(allSaveDto.getVotingName());
         votingService.save(voting);
         model.addAttribute("id", voting.getId());
         return "redirect:/voting/{id}";
     }
 
     @GetMapping("/voting/{id}")
-    public String votingAddGet (@PathVariable("id") Long id, Vote vote){
+    public String votingAddGet(@PathVariable("id") Long id, Vote vote) {
         Voting votingById = votingService.findById(id).get();
         vote.setVoting(votingById);
         voteService.save(vote);
