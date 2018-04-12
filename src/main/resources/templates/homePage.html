@@ -7,12 +7,24 @@
 </head>
 <body>
 <div>
- <form th:action="@{/}" method="post" th:object="${allSaveDto}">
+ <form id="myform" th:action="@{/}" method="post" th:object="${allSaveDto}">
      <label>Enter you voting :
-         <input type="text" th:field="*{votingName}">
+         <input type="text" th:field="*{questionName}">
      </label>
      <label>Enter variant voting :
-         <input type="text" th:field="*{variant}">
+         <input type="text" th:field="*{variantsName}">
+     </label>
+     <label>Enter variant voting :
+         <input type="text" th:field="*{variantsName}">
+     </label>
+     <label>Enter variant voting :
+         <input type="text" th:field="*{variantsName}">
+     </label>
+     <label>Enter variant voting :
+         <input type="text" th:field="*{variantsName}">
+     </label>
+     <label>Enter variant voting :
+         <input type="text" th:field="*{variantsName}">
      </label>
      <button type="submit">Save</button>
  </form>

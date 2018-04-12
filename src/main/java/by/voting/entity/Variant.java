@@ -10,16 +10,16 @@ import javax.persistence.*;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString(exclude = "voting")
+@ToString
 @NoArgsConstructor
-@Table(name = "variant")
-public class Vote extends BaseEntity {
+@Table(name = "variants")
+public class Variant extends BaseEntity {
 
-    @Column(name = "variant_name")
+    @Column(name = "variants_name")
     private String variant;
-    @Column(name = "vote_people")
-    private Long like;
+    @Column(name = "people_like")
+    private Long peopleLike;
     @ManyToOne
-    @JoinColumn(name = "voting_id")
-    private Voting voting;
+    @JoinColumn(name = "question_id")
+    private Question question;
 }

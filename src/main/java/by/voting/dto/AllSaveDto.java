@@ -1,16 +1,19 @@
 package by.voting.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class AllSaveDto {
 
-    private Set<String> variant = new HashSet<>();
-    private String votingName;
-
+    private String questionName;
+    private List<String> variantsName = new ArrayList<>();
 }

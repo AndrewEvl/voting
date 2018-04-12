@@ -1,6 +1,6 @@
 package by.voting.repository;
 
-import by.voting.entity.Vote;
+import by.voting.entity.Question;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,25 +9,25 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface VoteRepository extends CrudRepository<Vote, Long> {
+public interface QuestionRepository extends CrudRepository<Question, Long> {
 
     @Override
-    <S extends Vote> S save(S s);
+    <S extends Question> S save(S s);
 
     @Override
-    <S extends Vote> Iterable<S> saveAll(Iterable<S> iterable);
+    <S extends Question> Iterable<S> saveAll(Iterable<S> iterable);
 
     @Override
-    Optional<Vote> findById(Long aLong);
+    Optional<Question> findById(Long aLong);
 
     @Override
     boolean existsById(Long aLong);
 
     @Override
-    Iterable<Vote> findAll();
+    Iterable<Question> findAll();
 
     @Override
-    Iterable<Vote> findAllById(Iterable<Long> iterable);
+    Iterable<Question> findAllById(Iterable<Long> iterable);
 
     @Override
     long count();
@@ -36,5 +36,5 @@ public interface VoteRepository extends CrudRepository<Vote, Long> {
     void deleteById(Long aLong);
 
     @Override
-    void delete(Vote vote);
+    void delete(Question question);
 }
