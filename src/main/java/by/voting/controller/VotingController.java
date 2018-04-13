@@ -9,12 +9,11 @@ import by.voting.service.interfaceService.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -68,14 +67,20 @@ public class VotingController {
         variantService.saveAll(variantsList);
         question.setVariant(variantsList);
         questionService.save(question);
-        return "redirect:/voting";
+        return "redirect:/info";
     }
 
-//    @GetMapping("/voting")
-//    public String votingAddGet( Vote vote) {
-//        Voting votingById = variantService.findById(ID).get();
-//        vote.setVoting(votingById);
-//        questionService.save(vote);
-//        return "redirect:/";
-//    }
+    @GetMapping("/info")
+    public String infoGet (){
+        return "info-page";
+    }
+
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
+    public String questionInfoGet (@PathVariable("id") Long id, Model model){
+        Question byId = questionService.findById(id).get();
+        List<Variant> variants = byId.getVariant();
+        model.addAttribute("variants",variants);
+        model.addAttribute("byId", byId);
+        return "redirect:/info";
+    }
 }
