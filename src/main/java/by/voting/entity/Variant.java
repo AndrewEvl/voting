@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(exclude = "question")
 @NoArgsConstructor
 @Table(name = "variants")
 public class Variant extends BaseEntity {

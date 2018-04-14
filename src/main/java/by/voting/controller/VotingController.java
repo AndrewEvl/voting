@@ -81,6 +81,19 @@ public class VotingController {
         List<Variant> variants = byId.getVariant();
         model.addAttribute("variants",variants);
         model.addAttribute("byId", byId);
-        return "redirect:/info";
+        return "info-page";
     }
+
+    @GetMapping("/add-like")
+    public String addLikeGet (){
+        return "add-like";
+    }
+
+    @RequestMapping(value = "/add-likes/{id}", method = RequestMethod.POST)
+    public String addLikePost(@PathVariable("id") Long id){
+        return "";
+    }
+
+
+
 }

@@ -6,6 +6,8 @@
 </head>
 <body>
 <h th:text="*{byId.question}"></h>
-<ul th:each=""></ul>
+<ul th:if="${variants.variant != null}" th:each="variants: ${variants}"
+    th:text="${variants.variant}">
+</ul>
 </body>
 </html>
