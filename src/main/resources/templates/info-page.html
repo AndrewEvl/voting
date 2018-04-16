@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+<a th:href="${'/closed/' + byId.id}">Closed voting</a>
 <h th:text="*{byId.question}"></h>
+<h th:text="*{byId.status}"></h>
 <ul th:if="${variants.variant != null}" th:each="variants: ${variants}"
     th:text="${variants.variant}">
 </ul>
