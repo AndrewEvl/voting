@@ -5,11 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -20,6 +21,8 @@ import java.util.Set;
 public class Question extends BaseEntity {
     @Column(name = "questions_name")
     private String question;
+    @Column(name = "status")
+    private Status status;
     @OneToMany(mappedBy = "question")
     private List<Variant> variant = new ArrayList<>();
 }

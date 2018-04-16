@@ -3,6 +3,7 @@ package by.voting.controller;
 
 import by.voting.dto.AllSaveDto;
 import by.voting.entity.Question;
+import by.voting.entity.Status;
 import by.voting.entity.Variant;
 import by.voting.service.interfaceService.QuestionService;
 import by.voting.service.interfaceService.VariantService;
@@ -14,14 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class VotingController {
 
     private QuestionService questionService;
     private VariantService variantService;
-    private static Long ID;
 
     @Autowired
     public VotingController(QuestionService questionService, VariantService variantService) {
@@ -50,50 +49,81 @@ public class VotingController {
     }
 
     @PostMapping("/")
-    public String homePagePost(AllSaveDto allSaveDto) {
+    public String homePagePost(AllSaveDto allSaveDto, Model model) {
         Question question = new Question();
         question.setQuestion(allSaveDto.getQuestionName());
         ArrayList<Variant> variantsList = new ArrayList<>();
         question.setQuestion(allSaveDto.getQuestionName());
+        question.setStatus(Status.OPEN);
         questionService.save(question);
-        for (int i = 0; i < allSaveDto.getVariantsName().size() ; i++) {
+        for (int i = 0; i < allSaveDto.getVariantsName().size(); i++) {
             Variant variantAtList = new Variant();
             List<String> variantsName = allSaveDto.getVariantsName();
             String nameVariant = variantsName.get(i);
             variantAtList.setVariant(nameVariant);
             variantAtList.setQuestion(question);
+            variantAtList.setPeopleLike(0L);
             variantsList.add(variantAtList);
         }
         variantService.saveAll(variantsList);
         question.setVariant(variantsList);
         questionService.save(question);
-        return "redirect:/info";
+        if (question.getQuestion() != null
+                && question.getVariant().size() > 0) {
+            model.addAttribute("uniqueId", "Unique URL page : http://localhost:8080/info/" + question.getId());
+            return "homePage";
+        }
+        return "homePage";
     }
 
     @GetMapping("/info")
-    public String infoGet (){
+    public String infoGet() {
         return "info-page";
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-    public String questionInfoGet (@PathVariable("id") Long id, Model model){
+    public String questionInfoGet(@PathVariable("id") Long id, Model model) {
         Question byId = questionService.findById(id).get();
         List<Variant> variants = byId.getVariant();
-        model.addAttribute("variants",variants);
+        model.addAttribute("variants", variants);
         model.addAttribute("byId", byId);
         return "info-page";
     }
 
     @GetMapping("/add-like")
-    public String addLikeGet (){
-        return "add-like";
+    public String addLikeGet() {
+        return "add-like-page";
     }
 
-    @RequestMapping(value = "/add-likes/{id}", method = RequestMethod.POST)
-    public String addLikePost(@PathVariable("id") Long id){
-        return "";
+    @RequestMapping(value = "/add-likes/{id}", method = RequestMethod.GET)
+    public String addLikeGet(@PathVariable("id") Long id, Model model) {
+        Optional<Question> byId = questionService.findById(id);
+        model.addAttribute("question", byId.get());
+        if (byId.get().getStatus() == Status.ClOSED) {
+            model.addAttribute("closed", "This voting is closed!");
+            return "add-like-page";
+        }
+        Variant variantOne = byId.get().getVariant().get(0);
+        Variant variantTwo = byId.get().getVariant().get(1);
+        Variant variantTree = byId.get().getVariant().get(2);
+        Variant variantFour = byId.get().getVariant().get(3);
+        Variant variantFive = byId.get().getVariant().get(4);
+        model.addAttribute("variantOne", variantOne);
+        model.addAttribute("variantTwo", variantTwo);
+        model.addAttribute("variantTree", variantTree);
+        model.addAttribute("variantFour", variantFour);
+        model.addAttribute("variantFive", variantFive);
+        return "add-like-page";
     }
 
+    @RequestMapping(value = "/add-likes/variant/?{id}", method = RequestMethod.GET)
+    public String addLikePost (@PathVariable("id") String id){
+        Optional<Variant> byId = variantService.findById(Long.valueOf(id));
+        long like = byId.get().getPeopleLike() + 1L;
+        byId.get().setPeopleLike(like);
+        variantService.save(byId.get());
+        return "add-like-page";
+    }
 
 
 }

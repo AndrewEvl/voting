@@ -31,4 +31,6 @@ public interface VariantRepository extends CrudRepository<Variant, Long> {
 
     @Override
     void delete(Variant variant);
+
+    Optional<Variant> findByVariantAndQuestion_Id (String variant, Long id);
 }

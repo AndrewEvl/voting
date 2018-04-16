@@ -4,7 +4,6 @@ import by.voting.entity.Variant;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface VariantService {
 
@@ -17,4 +16,6 @@ public interface VariantService {
     void delete(Variant variant);
 
     void saveAll (List<Variant> variantList);
+
+    Optional<Variant> findByVariantAndQuestion_Id (String variant, Long id);
 }

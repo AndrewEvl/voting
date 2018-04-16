@@ -7,27 +7,31 @@
 </head>
 <body>
 <div>
- <form id="myform" th:action="@{/}" method="post" th:object="${allSaveDto}">
-     <label>Enter you voting :
-         <input type="text" th:field="*{questionName}">
-     </label>
-     <label>Enter variant voting :
-         <input type="text" th:field="*{variantsName}">
-     </label>
-     <label>Enter variant voting :
-         <input type="text" th:field="*{variantsName}">
-     </label>
-     <label>Enter variant voting :
-         <input type="text" th:field="*{variantsName}">
-     </label>
-     <label>Enter variant voting :
-         <input type="text" th:field="*{variantsName}">
-     </label>
-     <label>Enter variant voting :
-         <input type="text" th:field="*{variantsName}">
-     </label>
-     <button type="submit">Save</button>
- </form>
+    <form id="myform" th:action="@{/}" method="post" th:object="${allSaveDto}">
+        <label>Enter you voting :
+            <input type="text" th:field="*{questionName}">
+        </label>
+        <label>Enter variant voting :
+            <input type="text" th:field="*{variantsName}">
+        </label>
+        <label>Enter variant voting :
+            <input type="text" th:field="*{variantsName}">
+        </label>
+        <label>Enter variant voting :
+            <input type="text" th:field="*{variantsName}">
+        </label>
+        <label>Enter variant voting :
+            <input type="text" th:field="*{variantsName}">
+        </label>
+        <label>Enter variant voting :
+            <input type="text" th:field="*{variantsName}">
+        </label>
+        <button type="submit">Save</button>
+        <div th:if="${uniqueId}" th:utext="${uniqueId}"
+             style="color: green">
+
+        </div>
+    </form>
 </div>
 </body>
 </html>
