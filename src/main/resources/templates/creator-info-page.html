@@ -7,6 +7,10 @@
 <body>
 Go to <a th:href="${'/add-likes/' + byId.id}">Voting</a>
 <p>
+    Closed voting :
+    <a th:href="${'/closed/' + byId.id}">Closed voting</a>
+</p>
+<p>
     Name voting :
     <h th:text="*{byId.question}"></h>
 </p>
@@ -18,6 +22,8 @@ Go to <a th:href="${'/add-likes/' + byId.id}">Voting</a>
 <ul th:if="${variants.variant != null}" th:each="variants: ${variants}"
     th:text="${variants.variant} + ' : ' +  ${variants.peopleLike}">
 </ul>
+<div th:utext="${urlLike}"></div>
+<div th:utext="${urlInfo}"></div>
 </p>
 </body>
 </html>

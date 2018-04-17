@@ -5,37 +5,39 @@
     <title>Title</title>
 </head>
 <body>
+<p>
+    <a th:href="${'/info/' + question.id}">Voting info</a>
 <div th:if="${closed}" th:utext="${closed}"
      style="color: red">
 </div>
-<div>
+</p>
+<p>
+    Voting name:
     <h th:text="${question.question}"></h>
-
-    <div th:if="variantOne != null">
-        <h th:if="variantOne != null" text="First variant voting : "></h>
-        <a th:href="${'/add-like/add/' + variantOne.id}"
+</p>
+<div>
+    Variants for voting:
+    <p>
+        <a th:if="${variantOne.variant} != null" th:href="${'/add-like/add/' + variantOne.id}"
            th:text="${variantOne.variant}"></a>
-    </div>
-    <div th:if="variantTwo != null">
-        <h th:if="variantTwo != null" text="First variant voting : "></h>
-        <a th:href="${'/add-like/add/' + variantTwo.id}"
+    </p>
+    <p>
+        <a th:if="${variantTwo.variant} != null" th:href="${'/add-like/add/' + variantTwo.id}"
            th:text="${variantTwo.variant}"></a>
-    </div>
-    <div th:if="variantTree != null">
-        <h th:if="variantTree != null" text="First variant voting : "></h>
-        <a th:href="${'/add-like/add/' + variantTree.id}"
+    </p>
+    <p>
+        <a th:if="${variantTree.variant} != null" th:href="${'/add-like/add/' + variantTree.id}"
            th:text="${variantTree.variant}"></a>
-    </div>
-    <div th:if="variantFour != null">
-        <h th:if="variantFour != null" text="First variant voting : "></h>
-        <a th:href="${'/add-like/add/' + variantFour.id}"
+    </p>
+    <p>
+        <a th:if="${variantFour.variant} != null" th:href="${'/add-like/add/' + variantFour.id}"
            th:text="${variantFour.variant}"></a>
-    </div>
-    <div th:if="variantFive != null">
-        <h th:if="variantFive != null" text="First variant voting : "></h>
-        <a th:href="${'/add-like/add/' + variantFive.id}"
+    </p>
+    <p>
+        <a th:if="${variantFive.variant} != null" th:href="${'/add-like/add/' + variantFive.id}"
            th:text="${variantFive.variant}"></a>
-    </div>
+    </p>
 </div>
+
 </body>
 </html>

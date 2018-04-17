@@ -70,15 +70,11 @@ public class VotingController {
         questionService.save(question);
         if (question.getQuestion() != null
                 && question.getVariant().size() > 0) {
-            model.addAttribute("uniqueId", "Unique URL page : http://localhost:8080/info/" + question.getId());
+            model.addAttribute("uniqueId", "Unique URL page for creator : http://localhost:8080/creator-info/" + question.getId());
+            model.addAttribute("addLike", "URL for voting : http://localhost:8080/add-likes/" + question.getId());
             return "homePage";
         }
         return "homePage";
-    }
-
-    @GetMapping("/info")
-    public String infoGet() {
-        return "info-page";
     }
 
     @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
@@ -90,24 +86,29 @@ public class VotingController {
         return "info-page";
     }
 
-    @GetMapping("/add-like")
-    public String addLikeGet() {
-        return "add-like-page";
+    @RequestMapping(value = "/creator-info/{id}", method = RequestMethod.GET)
+    public String questionCreatorInfoGet(@PathVariable("id") Long id, Model model) {
+        Question byId = questionService.findById(id).get();
+        List<Variant> variants = byId.getVariant();
+        model.addAttribute("variants", variants);
+        model.addAttribute("byId", byId);
+        model.addAttribute("urlLike", "URL for voting : http://localhost:8080/add-likes/" + byId.getId());
+        model.addAttribute("urlInfo","URL info for other user : http://localhost:8080/info/" + byId.getId());
+        return "creator-info-page";
     }
 
     @RequestMapping(value = "/add-likes/{id}", method = RequestMethod.GET)
     public String addLikeGet(@PathVariable("id") Long id, Model model) {
         Optional<Question> byId = questionService.findById(id);
         model.addAttribute("question", byId.get());
-        if (byId.get().getStatus() == Status.CLOSED) {
-            model.addAttribute("closed", "This voting is closed!");
-            return "add-like-page";
-        }
         Variant variantOne = byId.get().getVariant().get(0);
         Variant variantTwo = byId.get().getVariant().get(1);
         Variant variantTree = byId.get().getVariant().get(2);
         Variant variantFour = byId.get().getVariant().get(3);
         Variant variantFive = byId.get().getVariant().get(4);
+        if (byId.get().getStatus() == Status.CLOSED) {
+            model.addAttribute("closed", "This voting is closed!");
+        }
         model.addAttribute("variantOne", variantOne);
         model.addAttribute("variantTwo", variantTwo);
         model.addAttribute("variantTree", variantTree);
@@ -119,24 +120,20 @@ public class VotingController {
     @RequestMapping(value = "/add-like/add/{id}", method = RequestMethod.GET)
     public String addLikePost(@PathVariable("id") Long id) {
         Optional<Variant> byId = variantService.findById(id);
-        Long like = byId.get().getPeopleLike() + 1L;
-        byId.get().setPeopleLike(like);
-        variantService.save(byId.get());
+        if (byId.get().getQuestion().getStatus() != Status.CLOSED) {
+            Long like = byId.get().getPeopleLike() + 1L;
+            byId.get().setPeopleLike(like);
+            variantService.save(byId.get());
+            return "redirect:/";
+        }
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/closed", method = RequestMethod.GET)
-    public String closedGet(){
-        return "";
-    }
-
     @RequestMapping(value = "/closed/{id}", method = RequestMethod.GET)
-    public String closedIdGet (@PathVariable ("id") Long id){
+    public String closedIdGet(@PathVariable("id") Long id) {
         Optional<Question> byId = questionService.findById(id);
         byId.get().setStatus(Status.CLOSED);
         questionService.save(byId.get());
         return "redirect:/info/{id}";
     }
-
-
 }
