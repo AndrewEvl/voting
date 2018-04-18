@@ -27,27 +27,17 @@ public class VariantServiceImpl implements VariantService {
     }
 
     @Override
-    public Iterable<Variant> findAll() {
-        return variantRepository.findAll();
-    }
-
-    @Override
     public Optional<Variant> findById(Long id) {
         return variantRepository.findById(id);
     }
 
     @Override
-    public void delete(Variant variant) {
-        variantRepository.delete(variant);
+    public void delete(Long id) {
+        variantRepository.deleteById(id);
     }
 
     @Override
     public void saveAll(List<Variant> variantList) {
         variantRepository.saveAll(variantList);
-    }
-
-    @Override
-    public Optional<Variant> findByVariantAndQuestion_Id(String variant, Long id) {
-        return variantRepository.findByVariantAndQuestion_Id(variant,id);
     }
 }

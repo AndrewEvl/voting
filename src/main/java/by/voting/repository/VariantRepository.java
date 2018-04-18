@@ -10,6 +10,8 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface VariantRepository extends CrudRepository<Variant, Long> {
+    @Override
+    void deleteById(Long aLong);
 
     @Override
     <S extends Variant> S save(S s);
@@ -19,18 +21,4 @@ public interface VariantRepository extends CrudRepository<Variant, Long> {
 
     @Override
     Optional<Variant> findById(Long aLong);
-
-    @Override
-    Iterable<Variant> findAll();
-
-    @Override
-    Iterable<Variant> findAllById(Iterable<Long> iterable);
-
-    @Override
-    void deleteById(Long aLong);
-
-    @Override
-    void delete(Variant variant);
-
-    Optional<Variant> findByVariantAndQuestion_Id (String variant, Long id);
 }

@@ -26,17 +26,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Iterable<Question> findAll() {
-        return questionRepository.findAll();
-    }
-
-    @Override
     public Optional<Question> findById(Long id) {
         return questionRepository.findById(id);
     }
 
     @Override
-    public void delete(Question question) {
-        questionRepository.delete(question);
+    public void delete(Long id) {
+        questionRepository.deleteById(id);
     }
 }

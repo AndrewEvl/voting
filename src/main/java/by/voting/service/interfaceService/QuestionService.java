@@ -8,10 +8,8 @@ public interface QuestionService {
 
     void save(Question question);
 
-    Iterable<Question> findAll();
-
     Optional<Question> findById(Long id);
 
-    void delete(Question question);
+    void delete(Long id);
 
 }

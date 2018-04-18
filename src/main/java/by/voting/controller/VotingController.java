@@ -93,7 +93,7 @@ public class VotingController {
         model.addAttribute("variants", variants);
         model.addAttribute("byId", byId);
         model.addAttribute("urlLike", "URL for voting : http://localhost:8080/add-likes/" + byId.getId());
-        model.addAttribute("urlInfo","URL info for other user : http://localhost:8080/info/" + byId.getId());
+        model.addAttribute("urlInfo", "URL info for other user : http://localhost:8080/info/" + byId.getId());
         return "creator-info-page";
     }
 
@@ -124,9 +124,9 @@ public class VotingController {
             Long like = byId.get().getPeopleLike() + 1L;
             byId.get().setPeopleLike(like);
             variantService.save(byId.get());
-            return "redirect:/";
+            return "redirect:/accept-voice";
         }
-        return "redirect:/";
+        return "redirect:/closed-voice";
     }
 
     @RequestMapping(value = "/closed/{id}", method = RequestMethod.GET)
@@ -135,5 +135,15 @@ public class VotingController {
         byId.get().setStatus(Status.CLOSED);
         questionService.save(byId.get());
         return "redirect:/info/{id}";
+    }
+
+    @GetMapping("/accept-voice")
+    public String acceptVoiceGet (){
+        return "accept-page";
+    }
+
+    @GetMapping("/closed-voice")
+    public String closedVoiceGet (){
+        return "closed-page";
     }
 }

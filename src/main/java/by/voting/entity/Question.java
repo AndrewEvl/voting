@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(exclude = "variant")
 @Table(name = "questions")
 public class Question extends BaseEntity {
     @Column(name = "questions_name")

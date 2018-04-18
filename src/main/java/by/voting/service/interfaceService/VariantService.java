@@ -9,13 +9,9 @@ public interface VariantService {
 
     void save(Variant variant);
 
-    Iterable<Variant> findAll();
-
     Optional<Variant> findById(Long id);
 
-    void delete(Variant variant);
+    void delete(Long id);
 
-    void saveAll (List<Variant> variantList);
-
-    Optional<Variant> findByVariantAndQuestion_Id (String variant, Long id);
+    void saveAll(List<Variant> variantList);
 }
