@@ -1,6 +1,6 @@
 ***Hi! My name is Andrew!***
 
-I present to you my own implementation of the test task. To start the work, run  [Start_SQL.sql](Start_SQL.sql)Start_SQL.sql . After creating the database, you can run the application.
+I present to you my own implementation of the test task. To start the work, run  [Start_SQL.sql](Start_SQL.sql). After creating the database, you can run the application.
                    
 Start page: <http://localhost:8080/> (creating a vote with answer options.)
 
